@@ -4,7 +4,7 @@ import dbConnect from "../../lib/db/connection";
 import { models } from "mongoose";
 
 export default async function handler(req, res) {
-    console.log("req.body video.js: ", req.body);
+    
     if(req.method === "POST"){
         
         try {
