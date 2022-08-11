@@ -15,7 +15,10 @@
 
 // console.log(Math.ceil(x, y))
 
-const array = [0, 1, 2]
-array[4] = 4
+const array = [0, 1, 2, 1, 6, 5, 1]
+// array[4] = 4
 
-console.log(array[4])
+// console.log(array[4])
+
+const filteredArr = array.filter(num => num === 1)
+console.log(filteredArr)
