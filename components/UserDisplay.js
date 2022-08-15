@@ -71,7 +71,7 @@ const UserDisplay = ({
     }else {
       console.log("no user and/or dispayVid: ", user, displayVid)
     }
-    
+    console.log("user.videoList in getUserHandler: ", user.videoList)
   };
 
   const resetUserVideosHandler = async () => {

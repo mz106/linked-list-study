@@ -62,11 +62,23 @@ export default function Home() {
     console.log("user.videoList: ", user.videoList)
     if(user) {
       if(displayVid.next) {
-        const filteredUserVidList = user.videoList.filter(url => url === displayVid.val.url);
+        console.log("handleNext displayVid.val.url: ", displayVid.val.url)
+        console.log("handleNext displayVid.next.val.url: ", displayVid.next.val.url)
+
+        const filteredUserVidList = user.videoList.filter(url => url === displayVid.next.val.url);
         console.log("filteredUserVidList: ", filteredUserVidList)
-        console.log("handleNext displayVid.next before change: ", displayVid.next)
-        setDisplayVid(displayVid.next);
-        console.log("handleNext displayVid after change: ", displayVid)
+        if(filteredUserVidList.length === 0) {
+          
+          console.log("no permission: ", filteredUserVidList)
+          
+        } else {
+          setDisplayVid(displayVid.next);
+        }
+        // console.log(displayVid.val.url)
+        // console.log("filteredUserVidList: ", filteredUserVidList)
+        // console.log("handleNext displayVid.next before change: ", displayVid.next)
+        
+        // console.log("handleNext displayVid after change: ", displayVid)
         const arr = [];
         // for (let i in displayVid.next.val.options) {
         //   const value = displayVid.next.val.options[i]
@@ -83,7 +95,10 @@ export default function Home() {
 
   const handlePrev = () => {
     if(displayVid.prev) {
+      
       setDisplayVid(displayVid.prev)
+    } else {
+      console.log("user: ", user)
     }
   }
 

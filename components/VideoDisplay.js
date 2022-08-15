@@ -1,6 +1,7 @@
+import { setRequestMeta } from 'next/dist/server/request-meta';
 import { useState, useEffect } from 'react';
 
-import { updateUserVideoListArr } from '../lib/helpers/helpers';
+import { updateUserVideoListArr, getUser } from '../lib/helpers/helpers';
 
 const VideoDisplay = ({ displayVid, user, setUser, optionArr, setOptionArr }) => {
   const [ selected, setSelected ] = useState("false");
@@ -34,13 +35,18 @@ const VideoDisplay = ({ displayVid, user, setUser, optionArr, setOptionArr }) =>
         } else {
           console.log("user before submit: ", user)
           const updatedUserVideoList = await updateUserVideoListArr(user.username, displayVid.next.val.url);
-          await setUser(updatedUserVideoList.udpatedUser);
+          await setUser(updatedUserVideoList.updatedUser);
           console.log("user after submit: ", user);
+          // setUser(data)
+      console.log(user)
         }
         
     } else {
         console.log("incorrect");
     }
+
+    const data = await getUser();
+    
   };
 
   return (
