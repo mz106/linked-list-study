@@ -12,36 +12,40 @@ export default function Home() {
   const [ vidData, setVidData ] = useState();
   const [ dll, setDll ] = useState();
   const [ displayVid, setDisplayVid ] = useState();
-  // const [ optionArr, setOptionArr ] = useState();
+  const [ optionArr, setOptionArr ] = useState();
   const [ user, setUser ] = useState({});
 
-  useEffect(() => {
-    // (async() => {
-    //   const res = await fetch("http://localhost:3000/api/video");
-    //   console.log("res: ", res)
-    //   const data = await res.json();
-    //   console.log("data in useEffect: ", data);
-    //   setVidData(data);
-    //   console.log("vidData: ", vidData)
-    // })()
+  // useEffect(() => {
+  //   // (async() => {
+  //   //   const res = await fetch("http://localhost:3000/api/video");
+  //   //   console.log("res: ", res)
+  //   //   const data = await res.json();
+  //   //   console.log("data in useEffect: ", data);
+  //   //   setVidData(data);
+  //   //   console.log("vidData: ", vidData)
+  //   // })()
 
-    async function fetchVids() {
-      const res = await fetch("http://localhost:3000/api/video");
-      const data = await res.json();
-      setVidData(data)
-    };
+  //   if(user) {
+  //       async function fetchVids() {
+  //       const res = await fetch("http://localhost:3000/api/video");
+  //       const data = await res.json();
+  //       setVidData(data)
+  //       console.log("vidData useEffect index.js: ", vidData);
+  //     };
+  
+  //     fetchVids()
+  //   } console.log("Please get user first")
+    
 
-    fetchVids()
+  //   // async function getUser() {
+  //   //   const res = await fetch("http://localhost:3000/api/dave");
+  //   //   const data = await res.json();
+  //   //   await setUser(data);
+  //   // };
 
-    // async function getUser() {
-    //   const res = await fetch("http://localhost:3000/api/dave");
-    //   const data = await res.json();
-    //   await setUser(data);
-    // };
+  //   // getUser();
 
-    // getUser();
-
-  }, []);
+  // }, [user]);
 
   const handleClick = () => {
 
@@ -55,8 +59,21 @@ export default function Home() {
   const handleNext = () => {
     if(user) {
       if(displayVid.next) {
-      
-        setDisplayVid(displayVid.next);
+        
+        const filteredUserVidList = user.videoList.filter(url => url === displayVid.next.val.url);
+        console.log("filteredUserVidList: ", filteredUserVidList)
+        if(filteredUserVidList.length === 0) {
+          
+          console.log("no permission: ", filteredUserVidList)
+          
+        } else {
+          setDisplayVid(displayVid.next);
+        }
+        // console.log(displayVid.val.url)
+        // console.log("filteredUserVidList: ", filteredUserVidList)
+        // console.log("handleNext displayVid.next before change: ", displayVid.next)
+        
+        // console.log("handleNext displayVid after change: ", displayVid)
         const arr = [];
         // for (let i in displayVid.next.val.options) {
         //   const value = displayVid.next.val.options[i]
@@ -73,7 +90,10 @@ export default function Home() {
 
   const handlePrev = () => {
     if(displayVid.prev) {
+      
       setDisplayVid(displayVid.prev)
+    } else {
+      console.log("This is the first video")
     }
   }
 
@@ -82,9 +102,26 @@ export default function Home() {
       <button onClick={handleClick}>Click</button>
       <button onClick={handleNext}>Next</button>
       <button onClick={handlePrev}>Prev</button>
-      {displayVid && <VideoDisplay displayVid={displayVid} user={user} setUser={setUser} />}
+      {displayVid && <VideoDisplay 
+                        displayVid={displayVid} 
+                        user={user} 
+                        setUser={setUser} 
+                        optionArr={optionArr}
+                        setOptionArr={setOptionArr}
+                      />}
       <div>
-        <UserDisplay user={user} setUser={setUser}/>
+        <UserDisplay 
+          user={user} 
+          setUser={setUser} 
+          displayVid={displayVid} 
+          setDisplayVid={setDisplayVid} 
+          dll={dll} 
+          setDll={setDll} 
+          vidData={vidData}
+          setVidData={setVidData}
+          optionArr={optionArr}
+          setOptionArr={setOptionArr}
+        />
       </div>
     </div>
   );
