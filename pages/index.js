@@ -57,14 +57,9 @@ export default function Home() {
   };
 
   const handleNext = () => {
-    console.log(user);
-    console.log("displayVid handleNext: ", displayVid)
-    console.log("user.videoList: ", user.videoList)
     if(user) {
       if(displayVid.next) {
-        console.log("handleNext displayVid.val.url: ", displayVid.val.url)
-        console.log("handleNext displayVid.next.val.url: ", displayVid.next.val.url)
-
+        
         const filteredUserVidList = user.videoList.filter(url => url === displayVid.next.val.url);
         console.log("filteredUserVidList: ", filteredUserVidList)
         if(filteredUserVidList.length === 0) {
@@ -98,7 +93,7 @@ export default function Home() {
       
       setDisplayVid(displayVid.prev)
     } else {
-      console.log("user: ", user)
+      console.log("This is the first video")
     }
   }
 

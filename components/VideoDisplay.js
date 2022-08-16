@@ -33,12 +33,19 @@ const VideoDisplay = ({ displayVid, user, setUser, optionArr, setOptionArr }) =>
         if(!displayVid.next) {
           console.log("you have completed all videos!");
         } else {
-          console.log("user before submit: ", user)
-          const updatedUserVideoList = await updateUserVideoListArr(user.username, displayVid.next.val.url);
-          await setUser(updatedUserVideoList.updatedUser);
-          console.log("user after submit: ", user);
-          // setUser(data)
-      console.log(user)
+          let urlInArrayCheck;
+          if(displayVid.next) {
+            urlInArrayCheck = user.videoList.filter(url => url === displayVid.next.val.url);
+          }
+
+          if(urlInArrayCheck.length < 1) {
+            const updatedUserVideoList = await updateUserVideoListArr(user.username, displayVid.next.val.url);
+            await setUser(updatedUserVideoList.updatedUser);
+            
+          } else {
+            
+          }
+          
         }
         
     } else {
@@ -46,6 +53,7 @@ const VideoDisplay = ({ displayVid, user, setUser, optionArr, setOptionArr }) =>
     }
 
     const data = await getUser();
+   
     
   };
 
